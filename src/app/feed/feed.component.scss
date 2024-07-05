@@ -1,0 +1,11 @@
+#idea-page{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+app-idea-preview{
+
+    width: clamp(40%, 90%, 100%);
+
+}

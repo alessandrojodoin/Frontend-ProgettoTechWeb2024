@@ -1,10 +1,17 @@
 #links{
-    display: flex;
+    display: inline-flex;
     justify-content: flex-end;
+    width: 80vw;
 }
 
 #navbar{
     height: 5vh;
+    background-color: orange;
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    position: sticky;
+    top: 0px;
 }
 
 #app-name{
