@@ -1,11 +1,15 @@
 #upvotes{
     background-color: #2679ff;
+    width: 49%;
 }
 
 #downvotes{
     background-color: #f03547;
+    width: 49%;
 }
 
-.idea-card{
+:host{
+
+    width: clamp(40%, 90%, 50em);
     background-color: orange;
 }

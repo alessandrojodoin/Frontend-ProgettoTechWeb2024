@@ -1,11 +1,11 @@
-#links{
+.links{
     display: inline-flex;
     justify-content: flex-end;
     width: 80vw;
 }
 
-#navbar{
-    height: 5vh;
+:host{
+    height: clamp(1em, 6vh, 6vh);
     background-color: orange;
     display: flex;
     align-items: center;
@@ -14,7 +14,7 @@
     top: 0px;
 }
 
-#app-name{
+.app-name{
     width: 20vw;
     display: inline-block;
 }
