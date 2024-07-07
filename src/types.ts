@@ -1,4 +1,5 @@
 export type Idea = {
+    id: number,
     title: string,
     description: string,
     upvotes: number,
@@ -13,6 +14,7 @@ export type User = {
 }
 
 export type Reply = {
+    id: number,
     text: string,
     replyTo: Idea
 }
