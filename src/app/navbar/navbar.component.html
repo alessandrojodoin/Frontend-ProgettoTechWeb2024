@@ -1,7 +1,14 @@
 
 <a routerLink="/" class="app-name">Hivemind</a>
 <div class="links">
-    <a routerLink="/feed" routerLinkActive="currentPageLink">Feed</a>
-    <a routerLink="/login" routerLinkActive="currentPageLink">Login</a>
-    <a routerLink="/signup" routerLinkActive="currentPageLink">Sign Up</a>
+
+    @if(!this.authService.isUserAuthenticated()){
+        <a routerLink="/login" routerLinkActive="currentPageLink">Login</a>
+        <a routerLink="/signup" routerLinkActive="currentPageLink">Sign Up</a>
+    }
+    @else {
+        <a routerLink="/feed" routerLinkActive="currentPageLink">Feed</a>
+        <a>Welcome, {{authService.getUsername()}} </a>
+    }
+
 </div>

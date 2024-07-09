@@ -11,6 +11,7 @@ import { Idea } from '../../types';
 export class IdeaPreviewComponent {
 
   @Input() idea: Idea = {
+    id: 20,
     title: "Title",
     description: "Description",
     upvotes: 0,

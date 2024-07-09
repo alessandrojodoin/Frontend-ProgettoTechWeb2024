@@ -79,5 +79,13 @@ export class AuthService {
     return this.authState.isTokenValid
   }
 
+  getUsername(): string {
+    if(this.authState.user){
+      return this.authState.user;
+    }
+    else return "";
+   
+  }
+
 
 }

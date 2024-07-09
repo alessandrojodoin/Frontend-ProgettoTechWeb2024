@@ -7,7 +7,7 @@ import { Idea, User, Reply } from '../../types';
 })
 export class RestBackendService {
   private http = inject(HttpClient);
-  private url = "https://localhost:3000";
+  private url = "http://localhost:3000";
 
   private httpOptions = {
     headers: new HttpHeaders({

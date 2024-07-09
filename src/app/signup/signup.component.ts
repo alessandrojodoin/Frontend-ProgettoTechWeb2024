@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RestBackendService } from '../_services/rest-backend.service';
 
 @Component({
   selector: 'app-signup',
@@ -10,12 +11,20 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   styleUrl: './signup.component.scss'
 })
 export class SignupComponent {
+  private rest = inject(RestBackendService);
   signupForm = new FormGroup({
-    username: new FormControl(''),
-    password: new FormControl(''),
+    username: new FormControl('',
+      Validators.required,
+    ),
+    password: new FormControl('',
+      Validators.required
+    ),
   })
 
   onSubmit(){
-    console.log(this.signupForm.value.username);
+    this.rest.signup({
+      username: this.signupForm.value.username as string,
+      password: this.signupForm.value.password as string
+    }).subscribe();
   }
 }
