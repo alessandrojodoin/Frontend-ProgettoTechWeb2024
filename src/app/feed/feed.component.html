@@ -1,6 +1,5 @@
 
-<app-idea-preview></app-idea-preview>
-<app-idea-preview></app-idea-preview>
-<app-idea-preview></app-idea-preview>
-
+@for(idea of ideas; track idea.id){
+    <app-idea-preview [idea]="idea"></app-idea-preview>
+}
 

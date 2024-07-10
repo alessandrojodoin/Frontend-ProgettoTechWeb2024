@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { IdeaPreviewComponent } from '../idea-preview/idea-preview.component';
+import { RestBackendService } from '../_services/rest-backend.service';
+import { Idea } from '../../types';
 
 @Component({
   selector: 'app-feed',
@@ -9,5 +11,15 @@ import { IdeaPreviewComponent } from '../idea-preview/idea-preview.component';
   styleUrl: './feed.component.scss'
 })
 export class FeedComponent {
+  private rest = inject(RestBackendService);
+  ideas: Idea[] = [];
+
+  ngOnInit(){
+    this.rest.getIdeas().subscribe({
+      next: (ideas) => {
+        this.ideas = ideas;
+      }
+    })
+  }
 
 }

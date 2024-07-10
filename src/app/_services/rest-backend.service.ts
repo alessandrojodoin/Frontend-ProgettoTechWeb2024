@@ -28,5 +28,10 @@ export class RestBackendService {
     return this.http.post<string>(url, signupCredentials, this.httpOptions);
   }
 
+  getIdeas(){
+    const url = `${this.url}/ideas`;
+    return this.http.get<Idea[]>(url, this.httpOptions);
+  }
+
 
 }
