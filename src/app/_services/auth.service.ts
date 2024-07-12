@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, Injector } from '@angular/core';
 import { RestBackendService } from './rest-backend.service';
 import { jwtDecode } from 'jwt-decode';
 
@@ -16,7 +16,7 @@ type AuthState = {
 
 export class AuthService {
 
-  private rest = inject(RestBackendService);
+  private injector = inject(Injector);
 
   authState: AuthState = {
     user: null,
@@ -63,7 +63,8 @@ export class AuthService {
   }
 
   login(loginCredentials: {username: string, password: string}){
-    this.rest.login(loginCredentials).subscribe({
+    const rest = this.injector.get(RestBackendService);
+    rest.login(loginCredentials).subscribe({
       next: (token) => {
         this.setToken(token);
       },
