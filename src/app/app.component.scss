@@ -1,3 +1,13 @@
-.app-backdrop{
-    width: clamp(0px, 100vw, 40em);
+@import "variables.scss";
+
+.app-container{
+    display: flex;
+    justify-content: center;
+    div {
+        width: clamp(0px, 100vw, 50em);
+        background-color: white;
+    }
+    background-color: $backround-color;
+    min-height: 100vh;
+
 }

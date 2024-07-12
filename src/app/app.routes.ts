@@ -4,6 +4,7 @@ import { SignupComponent } from './signup/signup.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { SubmitComponent } from './submit/submit.component';
+import { LogoutComponent } from './logout/logout.component';
 
 export const routes: Routes = [
     {
@@ -30,5 +31,10 @@ export const routes: Routes = [
         path: "submit",
         title: "Submit an idea",
         component: SubmitComponent
+    },
+    {
+        path: "logout",
+        title: "Logout",
+        component: LogoutComponent
     }
 ];

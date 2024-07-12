@@ -8,7 +8,7 @@
     }
     @else {
         <a routerLink="/feed" routerLinkActive="currentPageLink">Feed</a>
-        <a>Welcome, {{authService.getUsername()}} </a>
+        <a routerLink="/logout">Welcome, {{authService.getUsername()}} </a>
     }
 
 </div>

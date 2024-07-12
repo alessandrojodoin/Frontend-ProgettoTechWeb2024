@@ -1,3 +1,5 @@
+@import "../variables.scss";
+
 #upvotes{
     background-color: #2679ff;
     width: 49%;
@@ -11,5 +13,6 @@
 :host{
 
     width: clamp(40%, 90%, 50em);
-    background-color: orange;
+    background-color: $primary-color;
+    margin: 2em;
 }

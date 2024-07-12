@@ -11,7 +11,7 @@ export class RestBackendService {
   private http = inject(HttpClient);
   private url = "http://localhost:3000";
 
-  private httpOptions = {
+  private jsonHttpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
       'authorization': ''
@@ -19,36 +19,46 @@ export class RestBackendService {
     responseType: 'json' as const,
   };
 
+  private textHttpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'authorization': ''
+    }),
+    responseType: 'text' as const,
+  };
+
   constructor() { }
 
   private updateAuthHeader(){
     if(this.auth.isUserAuthenticated()){
-      this.httpOptions.headers = new HttpHeaders({
+      const headers = new HttpHeaders({
         'Content-Type': 'application/json',
         'authorization': this.auth.authState.token as string
       })
+      this.jsonHttpOptions.headers = headers;
+      this.textHttpOptions.headers = headers;
     }
   }
 
   login(loginCredentials: {username: string, password: string}){
     const url = `${this.url}/auth`;
-    return this.http.post<string>(url, loginCredentials, this.httpOptions);
+    return this.http.post<string>(url, loginCredentials, this.jsonHttpOptions);
   }
 
   signup(signupCredentials: {username: string, password: string}){
     const url = `${this.url}/signup`;
-    return this.http.post<string>(url, signupCredentials, this.httpOptions);
+    return this.http.post<string>(url, signupCredentials, this.jsonHttpOptions);
   }
 
   getIdeas(){
     const url = `${this.url}/ideas`;
-    return this.http.get<Idea[]>(url, this.httpOptions);
+    return this.http.get<Idea[]>(url, this.jsonHttpOptions);
   }
 
   postIdeas(idea: {title: string, description: string}){
     this.updateAuthHeader();
     const url = `${this.url}/ideas`;
-    return this.http.post<string>(url, idea, this.httpOptions);
+    return this.http.post(url, idea, this.textHttpOptions);
   }
     
   

@@ -1,3 +1,5 @@
+@import "../variables.scss";
+
 .links{
     display: inline-flex;
     justify-content: flex-end;
@@ -6,7 +8,7 @@
 
 :host{
     height: clamp(1em, 6vh, 6vh);
-    background-color: orange;
+    background-color: $primary-color;
     display: flex;
     align-items: center;
     flex-wrap: nowrap;
