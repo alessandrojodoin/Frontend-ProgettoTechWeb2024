@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { IdeaPreviewComponent } from '../idea-preview/idea-preview.component';
 import { RestBackendService } from '../_services/rest-backend.service';
 import { Idea } from '../../types';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 
 @Component({
   selector: 'app-feed',
@@ -13,7 +13,9 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 })
 export class FeedComponent {
   private rest = inject(RestBackendService);
+  private router = inject(Router);
   ideas: Idea[] = [];
+
 
   ngOnInit(){
     this.rest.getIdeas().subscribe({
@@ -22,5 +24,6 @@ export class FeedComponent {
       }
     })
   }
+
 
 }

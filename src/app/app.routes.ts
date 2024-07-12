@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { SubmitComponent } from './submit/submit.component';
 import { LogoutComponent } from './logout/logout.component';
+import { IdeaPageComponent } from './idea-page/idea-page.component';
 
 export const routes: Routes = [
     {
@@ -36,5 +37,11 @@ export const routes: Routes = [
         path: "logout",
         title: "Logout",
         component: LogoutComponent
+    },
+    {
+        path: "idea/:id",
+        title: "Idea",
+        component: IdeaPageComponent
     }
+    
 ];

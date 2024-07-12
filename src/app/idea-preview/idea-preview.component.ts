@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { Idea } from '../../types';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-idea-preview',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './idea-preview.component.html',
   styleUrl: './idea-preview.component.scss'
 })

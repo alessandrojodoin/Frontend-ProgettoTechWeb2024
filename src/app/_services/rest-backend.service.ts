@@ -55,6 +55,12 @@ export class RestBackendService {
     return this.http.get<Idea[]>(url, this.jsonHttpOptions);
   }
 
+  getIdea(id: number){
+    const url = `${this.url}/ideas/${id}`;
+    return this.http.get<Idea>(url, this.jsonHttpOptions);
+  }
+  
+
   postIdeas(idea: {title: string, description: string}){
     this.updateAuthHeader();
     const url = `${this.url}/ideas`;

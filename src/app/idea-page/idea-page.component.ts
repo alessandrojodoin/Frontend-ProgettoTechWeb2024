@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Input } from '@angular/core';
 import { Idea } from '../../types';
+import { ActivatedRoute } from '@angular/router';
+import { RestBackendService } from '../_services/rest-backend.service';
 
 @Component({
   selector: 'app-idea-page',
@@ -10,7 +12,19 @@ import { Idea } from '../../types';
   styleUrl: './idea-page.component.scss'
 })
 export class IdeaPageComponent {
-  @Input() idea: Idea = {
+  private activatedRoute = inject(ActivatedRoute);
+  private rest = inject(RestBackendService)
+
+  ngOnInit(){
+    const id = this.activatedRoute.snapshot.params['id'];
+    this.rest.getIdea(id).subscribe({
+      next: (idea) => {
+        this.idea = idea;
+      }
+    })
+  }
+
+ idea: Idea = {
     id: 20,
     title: "Title",
     description: "Description",
@@ -22,4 +36,11 @@ export class IdeaPageComponent {
     },
     comments: []
   };
+
+
+
+
+
+
+
 }
