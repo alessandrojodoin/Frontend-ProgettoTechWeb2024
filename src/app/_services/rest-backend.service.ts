@@ -1,7 +1,8 @@
 import { inject, Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Idea, User, Reply } from '../../types';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Idea, User, Reply, Vote } from '../../types';
 import { AuthService } from './auth.service';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -52,12 +53,23 @@ export class RestBackendService {
 
   getIdeas(){
     const url = `${this.url}/ideas`;
-    return this.http.get<Idea[]>(url, this.jsonHttpOptions);
+    return this.http.get<Idea[]>(url, this.jsonHttpOptions).pipe(
+      map(response => {
+        response.forEach((value) => {
+          value.createdAt = new Date(value.createdAt);
+        })
+        return response;
+      })
+    );
   }
 
   getIdea(id: number){
     const url = `${this.url}/ideas/${id}`;
-    return this.http.get<Idea>(url, this.jsonHttpOptions);
+    return this.http.get<Idea>(url, this.jsonHttpOptions).pipe(
+      map(response => ({
+        ...response, 
+        createdAt: new Date(response.createdAt)
+      })))
   }
   
 
@@ -66,7 +78,23 @@ export class RestBackendService {
     const url = `${this.url}/ideas`;
     return this.http.post(url, idea, this.textHttpOptions);
   }
+
+  sendVote(ideaId: number, voteType: "upvote" | "downvote"){
+    this.updateAuthHeader();
+    const url = `${this.url}/ideas/${ideaId}/votes`;
+    return this.http.post(url, {voteType: voteType}, this.textHttpOptions);
+  }
+
+  cancelVote(ideaId: number){
+    this.updateAuthHeader();
+    const url = `${this.url}/ideas/${ideaId}/votes`;
+    return this.http.delete(url, this.textHttpOptions);
+  }
     
+  getUserVote(ideaId: number){
+    const url = `${this.url}/ideas/${ideaId}/votes`;
+    return this.http.get<Vote>(url, {...this.jsonHttpOptions, ...{params: new HttpParams().set('username', this.auth.authState.user as string)}});
+  }
   
 
 }
