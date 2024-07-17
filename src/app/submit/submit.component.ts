@@ -21,7 +21,7 @@ export class SubmitComponent {
   })
 
   onSubmit(){
-    this.rest.postIdeas({
+    this.rest.postIdea({
       title: this.ideaForm.value.title as string,
       description: this.ideaForm.value.description as string
     }).subscribe();

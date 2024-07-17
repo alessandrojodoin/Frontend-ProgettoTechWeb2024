@@ -41,7 +41,7 @@ export class IdeaPreviewComponent {
         }
       }
     })
-    console.log(typeof this.idea.createdAt);
+
   }
 
 

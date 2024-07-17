@@ -18,7 +18,8 @@ export type User = {
 export type Reply = {
     id: number,
     text: string,
-    replyTo: Idea
+    replyTo: Idea,
+    author: User
 }
 
 export type Vote = {

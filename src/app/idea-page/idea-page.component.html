@@ -1,5 +1,28 @@
 <h1 id="title">{{idea.title}}</h1>
 <p id="description">{{idea.description}}</p>
+<div>
+    {{idea.author.username}}     submitted {{idea.createdAt.toDateString()}}
+    @if(this.auth.getUsername() === idea.author.username){
+        <button (click)="onDelete()"><i class="bi bi-trash-fill"></i></button>
+    } 
+</div>
+@if(idea.author.username !== this.auth.getUsername()){
+    <div class="vote-buttons">
+        @if(userVote !== "upvote"){
+            <button (click)="onUpvote()"><i class="bi bi-arrow-up-circle"></i></button>
+        }
+        @else {
+            <button (click)="onCancel()"><i class="bi bi-arrow-up-circle-fill"></i></button>
+        }
+        @if(userVote !== "downvote"){
+            <button (click)="onDownvote()"><i class="bi bi-arrow-down-circle"></i></button>
+        }
+        @else {
+            <button (click)="onCancel()"><i class="bi bi-arrow-down-circle-fill"></i></button>
+        }
+
+    </div>
+}
 <div id="vote-bar">
     <div id="upvotes">
         {{idea.upvotes}}
@@ -9,3 +32,9 @@
     </div>
 </div>
 
+@for(comment of comments; track comment.id){
+
+    <app-comment [comment] = "comment"></app-comment>
+
+}
+<app-submit-comment [ideaId]="idea.id" (commentSubmitted)="updateComments()"></app-submit-comment>

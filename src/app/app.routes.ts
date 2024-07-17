@@ -6,6 +6,8 @@ import { LoginComponent } from './login/login.component';
 import { SubmitComponent } from './submit/submit.component';
 import { LogoutComponent } from './logout/logout.component';
 import { IdeaPageComponent } from './idea-page/idea-page.component';
+import { SubmitCommentComponent } from './submit-comment/submit-comment.component';
+import { ErrorPageComponent } from './error-page/error-page.component';
 
 export const routes: Routes = [
     {
@@ -42,6 +44,11 @@ export const routes: Routes = [
         path: "idea/:id",
         title: "Idea",
         component: IdeaPageComponent
-    }
-    
+    },
+    {
+        path: "error",
+        title: "Error",
+        component: ErrorPageComponent
+    },
+
 ];

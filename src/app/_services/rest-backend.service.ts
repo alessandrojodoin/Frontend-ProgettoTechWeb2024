@@ -73,10 +73,16 @@ export class RestBackendService {
   }
   
 
-  postIdeas(idea: {title: string, description: string}){
+  postIdea(idea: {title: string, description: string}){
     this.updateAuthHeader();
     const url = `${this.url}/ideas`;
     return this.http.post(url, idea, this.textHttpOptions);
+  }
+
+  deleteIdea(id: number){
+    this.updateAuthHeader();
+    const url = `${this.url}/ideas/${id}`;
+    return this.http.delete(url, this.textHttpOptions);
   }
 
   sendVote(ideaId: number, voteType: "upvote" | "downvote"){
@@ -92,9 +98,20 @@ export class RestBackendService {
   }
     
   getUserVote(ideaId: number){
+    this.updateAuthHeader();
     const url = `${this.url}/ideas/${ideaId}/votes`;
     return this.http.get<Vote>(url, {...this.jsonHttpOptions, ...{params: new HttpParams().set('username', this.auth.authState.user as string)}});
   }
   
+  postComment(content: string, ideaId: number){
+    this.updateAuthHeader();
+    const url = `${this.url}/ideas/${ideaId}/comments`;
+    return this.http.post(url, {text: content}, this.textHttpOptions);
+  }
+  
 
+  getComments(ideaId: number){
+    const url = `${this.url}/ideas/${ideaId}/comments`;
+    return this.http.get<Reply[]>(url, this.jsonHttpOptions);
+  }
 }
