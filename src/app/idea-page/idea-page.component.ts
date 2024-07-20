@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, SecurityContext } from '@angular/core';
 import { Input } from '@angular/core';
 import { Idea, Reply } from '../../types';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -6,6 +6,8 @@ import { RestBackendService } from '../_services/rest-backend.service';
 import { AuthService } from '../_services/auth.service';
 import { CommentComponent } from '../comment/comment.component';
 import { SubmitCommentComponent } from "../submit-comment/submit-comment.component";
+import Showdown from 'showdown';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-idea-page',
@@ -18,6 +20,8 @@ export class IdeaPageComponent {
   private activatedRoute = inject(ActivatedRoute);
   private rest = inject(RestBackendService)
   private router = inject(Router);
+  converter = new Showdown.Converter();
+  sanitizer = inject(DomSanitizer);
 
   comments: Reply[] = [];
 
@@ -28,6 +32,7 @@ export class IdeaPageComponent {
     this.rest.getIdea(id).subscribe({
       next: (idea) => {
         this.idea = idea;
+        //this.sanitizedDescription = this.sanitizer.sanitize(SecurityContext.HTML ,idea.description) as string;
 
 
         this.rest.getUserVote(this.idea.id).subscribe({
@@ -61,6 +66,8 @@ export class IdeaPageComponent {
     comments: []
   };
 
+  //sanitizedDescription = "";
+  
 
   userVote: "upvote" | "downvote" | null = null;
   

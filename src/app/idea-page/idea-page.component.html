@@ -1,5 +1,5 @@
 <h1 id="title">{{idea.title}}</h1>
-<p id="description">{{idea.description}}</p>
+<p id="description" [innerHTML]="converter.makeHtml(idea.description)"></p>
 <div>
     {{idea.author.username}}     submitted {{idea.createdAt.toDateString()}}
     @if(this.auth.getUsername() === idea.author.username){
