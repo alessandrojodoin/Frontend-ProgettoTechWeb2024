@@ -1,3 +1,9 @@
+<div class="sorting-options">
+    <button (click)="sortIdeas(sortingCriteria.mostControversial)">Most Controversial</button>
+    <button (click)="sortIdeas(sortingCriteria.mostPopular)">Most Popular</button>
+    <button (click)="sortIdeas(sortingCriteria.mostUnpopular)">Most Unpopular</button>
+    <button (click)="sortIdeas(sortingCriteria.mostRecent)">Most Recent</button>
+</div>
 
 @for(idea of currentPageIdeas; track idea.id){
 

@@ -1,23 +1,87 @@
 @import "../variables.scss";
 
-#upvotes{
-    background-color: #2679ff;
-    width: 49%;
+.upvotes{
+    background-color: $upvote-color;
+    //width: 50%;
 }
 
-#downvotes{
-    background-color: #f03547;
-    width: 49%;
+.downvotes{
+    background-color: $downvote-color;
+    //width: 50%;
 }
 
 :host{
 
     width: clamp(40%, 90%, 50em);
     background-color: $primary-color;
-    margin: 2em;
+    margin: 1em;
+    border-radius: 20px 20px 20px 20px;
+    padding-top: 1em;
+    padding-bottom: 0em;
+    //height: clamp(20px, 30vh, 150px);
 }
 
 a {
     color: black;
     text-decoration: none;
+}
+
+.vote-bar{
+    * {
+        display: inline-block;
+        height: 1.5em;
+        font-size: 1.3em;
+        font-weight: bold;
+    }
+    .upvotes {
+        border-bottom-left-radius: 20px;
+    }
+    .downvotes {
+        border-bottom-right-radius: 20px;
+    }
+}
+
+h1 {
+    margin: 0%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    display: block;
+    text-wrap: wrap;
+    width: 80%;
+
+}
+
+.vote-buttons{
+    display: flex;
+   
+    button {
+        font-size: 2em;
+        color: buttontext;
+        display: inline-block;
+        text-align: center;
+        align-items: flex-start;
+        cursor: default;
+        box-sizing: border-box;
+        background-color: transparent;
+        margin: 0em;
+        padding-block: 1px;
+        padding-inline: 6px;
+        border-width: 2px;
+        border-style: none;
+        border-color: buttonborder;
+        border-image: initial;
+    }
+    .upvote-button i{
+        color: $dark-upvote-color;
+    }
+    .downvote-button i{
+        color: $dark-downvote-color;
+    }
+}
+
+.idea-info{
+    display: inline-flex;
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-bottom: 1em;
 }

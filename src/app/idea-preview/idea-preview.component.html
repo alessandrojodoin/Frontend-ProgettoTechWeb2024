@@ -1,30 +1,31 @@
 
-<h1 id="title"><a routerLink="/idea/{{idea.id}}">{{idea.title}}</a></h1>
-<div>{{idea.author.username}}     submitted {{idea.createdAt.toDateString()}}</div>
-<p id="description">{{idea.description}}</p>
+<h1 class="title"><a routerLink="/idea/{{idea.id}}">{{idea.title}}</a></h1>
+<div class="idea-info">{{idea.author.username}}     submitted {{idea.createdAt.toLocaleDateString()}} {{idea.createdAt.toLocaleTimeString()}}</div>
+
 @if(idea.author.username !== this.auth.getUsername()){
     <div class="vote-buttons">
         @if(userVote !== "upvote"){
-            <button (click)="onUpvote()"><i class="bi bi-arrow-up-circle"></i></button>
+            <button class="upvote-button" (click)="onUpvote()"><i class="bi bi-arrow-up-circle"></i></button>
         }
         @else {
-            <button (click)="onCancel()"><i class="bi bi-arrow-up-circle-fill"></i></button>
+            <button class="upvote-button" (click)="onCancel()"><i class="bi bi-arrow-up-circle-fill"></i></button>
         }
         @if(userVote !== "downvote"){
-            <button (click)="onDownvote()"><i class="bi bi-arrow-down-circle"></i></button>
+            <button class="downvote-button" (click)="onDownvote()"><i class="bi bi-arrow-down-circle"></i></button>
         }
         @else {
-            <button (click)="onCancel()"><i class="bi bi-arrow-down-circle-fill"></i></button>
+            <button class="downvote-button" (click)="onCancel()"><i class="bi bi-arrow-down-circle-fill"></i></button>
         }
 
     </div>
 }
-<div id="vote-bar">
-    <div id="upvotes">
+
+<div class="vote-bar">
+    <div class="upvotes" [style.width]="upvotePercent.toString() + '%'">
         {{idea.upvotes}}
         
     </div>
-    <div id="downvotes">
+    <div class="downvotes" [style.width]="downvotePercent.toString() + '%'">
         {{idea.downvotes}}
     </div>
 </div>

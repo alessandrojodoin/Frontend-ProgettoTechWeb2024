@@ -16,21 +16,53 @@ export class FeedComponent {
   private router = inject(Router);
   ideas: Idea[] = [];
   sortingCriteria = {
-    mostRecent: (a: Idea, b: Idea) =>
+    mostRecent: (a: Idea, b: Idea): number =>
       {
-        if(a.createdAt.getTime >= b.createdAt.getTime){
+        return (b.createdAt.getTime() - a.createdAt.getTime());
+    },
+    mostControversial: (a: Idea, b: Idea) =>
+      {
+        // Ideas with 0 votes always come last
+        if(a.upvotes + a.downvotes === 0 && b.upvotes + b.downvotes === 0){
+          return 0;
+        }
+        if(a.upvotes + a.downvotes === 0){
+          return 1;
+        }
+        if(b.upvotes + b.downvotes === 0){
           return -1;
         }
-        else{
-          return 1
+
+        // Ideas with a more unbalanced upvote/downvote ratio than 30/70 are considered less controversial than ones that don't
+        if(a.upvotes / (a.upvotes + a.downvotes) < 0.30 && b.upvotes / (b.upvotes + b.downvotes) >= 0.30){
+          return 1;
         }
-      },
-      mostControversial: (a: Idea, b: Idea) =>
-        {
-        },
+        if(a.upvotes / (a.upvotes + a.downvotes) >= 0.30 && b.upvotes / (b.upvotes + b.downvotes) < 0.30){
+          return -1;
+        }
+
+        // Seperate Ideas with a large difference in vote counts
+        if(Math.floor(Math.log(a.upvotes + a.downvotes)) > Math.floor(Math.log(b.upvotes + b.downvotes))){
+          return -1;
+        }
+        if(Math.floor(Math.log(b.upvotes + b.downvotes)) > Math.floor(Math.log(a.upvotes + a.downvotes))){
+          return 1;
+        }
+
+        //Then finally sort ideas by controversialness
+        return Math.abs(a.upvotes - a.downvotes) - Math.abs(b.upvotes - b.downvotes);
+    },
+    mostUnpopular: (a: Idea, b: Idea) =>
+      {
+        return (b.downvotes - b.upvotes) - (a.downvotes - a.upvotes)
+    },
+    mostPopular: (a: Idea, b: Idea) =>
+      {
+        return this.sortingCriteria.mostUnpopular(a,b) * -1;
+    },
   }
 
-  private currentSortingFunction = this.sortingCriteria.mostRecent;
+  currentSortingFunction = this.sortingCriteria.mostRecent;
 
   currentPage = 1;
   currentPageIdeas: Idea[] = [];
@@ -61,6 +93,12 @@ export class FeedComponent {
       this.currentPageIdeas = this.ideas.slice((this.currentPage - 1) * 10, ((this.currentPage) * 10));
     }
 
+  }
+
+  sortIdeas(sortingFunction: (a: Idea, b: Idea) => number){
+    this.currentSortingFunction = sortingFunction;
+    this.ideas.sort(this.currentSortingFunction);
+    this.currentPageIdeas = this.ideas.slice((this.currentPage - 1) * 10, ((this.currentPage) * 10));
   }
 
 

@@ -29,8 +29,12 @@ export class IdeaPreviewComponent {
   };
 
   userVote: "upvote" | "downvote" | null = null;
+  upvotePercent = 0;
+  downvotePercent = 0;
+
   
   ngOnInit(){
+    this.scaleVoteBars();
     this.rest.getUserVote(this.idea.id).subscribe({
       next: (vote) => {
         if(vote.type !== undefined && (vote.type === "upvote" || vote.type === "downvote")){
@@ -44,6 +48,29 @@ export class IdeaPreviewComponent {
 
   }
 
+  scaleVoteBars(){
+    const totalVotes = this.idea.upvotes + this.idea.downvotes;
+    if(totalVotes === 0){
+      this.upvotePercent = 50;
+      this.downvotePercent = 50;
+    }
+    else{
+      this.upvotePercent = (this.idea.upvotes / totalVotes) * 100;
+      this.downvotePercent = 100 - this.upvotePercent;
+    }
+
+
+    if(this.upvotePercent <= 20){
+      this.upvotePercent = 20;
+      this.downvotePercent = 80;
+    }
+    else if(this.upvotePercent > 80){
+      this.upvotePercent = 80;
+      this.downvotePercent = 20;
+    }
+
+  }
+
 
   onUpvote(){
     this.rest.sendVote(this.idea.id, "upvote").subscribe();
@@ -52,6 +79,7 @@ export class IdeaPreviewComponent {
       this.idea.downvotes--;
     }
     this.userVote = "upvote";
+    this.scaleVoteBars();
   }
   onDownvote(){
     this.rest.sendVote(this.idea.id, "downvote").subscribe();
@@ -61,6 +89,7 @@ export class IdeaPreviewComponent {
     }
     this
     this.userVote = "downvote";
+    this.scaleVoteBars();
   }
   onCancel(){
     this.rest.cancelVote(this.idea.id).subscribe();
@@ -71,7 +100,9 @@ export class IdeaPreviewComponent {
       this.idea.downvotes--;
     }
     this.userVote = null;
+    this.scaleVoteBars();
   }
+  
 
 
 }
