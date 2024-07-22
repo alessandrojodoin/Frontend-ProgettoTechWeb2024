@@ -6,6 +6,6 @@
 }
 
 <div>
-    {{currentPage}}
+    <button (click)="pageLeft()"><i class="bi bi-caret-left"></i></button>{{currentPage}}<button (click)="pageRight()"><i class="bi bi-caret-right"></i></button>
 </div>
 <a routerLink="/submit">Submit an idea</a>

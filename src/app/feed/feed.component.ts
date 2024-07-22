@@ -42,9 +42,25 @@ export class FeedComponent {
         this.ideas = ideas;
 
         ideas.sort(this.currentSortingFunction);
-        this.currentPageIdeas = ideas.slice(0, 9);
+        this.currentPageIdeas = ideas.slice(0, 10);
       }
     })
+  }
+
+  pageLeft(){
+    if(this.currentPage > 1){
+      this.currentPage = this.currentPage - 1;
+      this.currentPageIdeas = this.ideas.slice((this.currentPage - 1) * 10, ((this.currentPage) * 10));
+    }
+
+  }
+
+  pageRight(){
+    if(this.currentPage < (Math.floor(this.ideas.length/10) + 1)){
+      this.currentPage = this.currentPage + 1;
+      this.currentPageIdeas = this.ideas.slice((this.currentPage - 1) * 10, ((this.currentPage) * 10));
+    }
+
   }
 
 
