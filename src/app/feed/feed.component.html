@@ -1,7 +1,11 @@
 
-@for(idea of ideas; track idea.id){
+@for(idea of currentPageIdeas; track idea.id){
 
     <app-idea-preview [idea]="idea"></app-idea-preview>
 
 }
+
+<div>
+    {{currentPage}}
+</div>
 <a routerLink="/submit">Submit an idea</a>

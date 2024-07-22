@@ -63,6 +63,18 @@ export class RestBackendService {
     );
   }
 
+  getCurrentWeekIdeas(){
+    const url = `${this.url}/ideas`;
+    return this.http.get<Idea[]>(url, {...this.jsonHttpOptions, ...{params: new HttpParams().set('maxAge', 7)}}).pipe(
+      map(response => {
+        response.forEach((value) => {
+          value.createdAt = new Date(value.createdAt);
+        })
+        return response;
+      })
+    );
+  }
+
   getIdea(id: number){
     const url = `${this.url}/ideas/${id}`;
     return this.http.get<Idea>(url, this.jsonHttpOptions).pipe(
