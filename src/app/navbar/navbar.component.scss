@@ -3,24 +3,35 @@
 .links{
     display: inline-flex;
     justify-content: flex-end;
-    width: 80vw;
+    //width: 80vw;
+
 }
 
 :host{
-    height: clamp(1em, 6vh, 6vh);
-    background-color: $primary-color;
+    height: 6vh;
+    min-height: 1.6em;
+    background-color: $secondary-color;
     display: flex;
     align-items: center;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     position: sticky;
     top: 0px;
+    justify-content: space-evenly;
 }
 
 .app-name{
-    width: 20vw;
+    //width: 20vw;
     display: inline-block;
 }
 
 a{
     margin-right: 1em;
+    color: black;
+    font-weight: bold;
+    font-size: 1.5em;
+    text-decoration: none;
+}
+
+.currentPageLink{
+    text-decoration: underline;
 }

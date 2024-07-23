@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FeedComponent } from './feed/feed.component';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -12,4 +13,5 @@ import { FeedComponent } from './feed/feed.component';
 })
 export class AppComponent {
   title = 'Hivemind';
+  location = inject(Location);
 }

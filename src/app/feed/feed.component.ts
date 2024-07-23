@@ -3,6 +3,7 @@ import { IdeaPreviewComponent } from '../idea-preview/idea-preview.component';
 import { RestBackendService } from '../_services/rest-backend.service';
 import { Idea } from '../../types';
 import { RouterLink, RouterLinkActive, Router } from '@angular/router';
+import { AuthService } from '../_services/auth.service';
 
 @Component({
   selector: 'app-feed',
@@ -14,6 +15,7 @@ import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 export class FeedComponent {
   private rest = inject(RestBackendService);
   private router = inject(Router);
+  auth = inject(AuthService);
   ideas: Idea[] = [];
   sortingCriteria = {
     mostRecent: (a: Idea, b: Idea): number =>
@@ -62,7 +64,7 @@ export class FeedComponent {
     },
   }
 
-  currentSortingFunction = this.sortingCriteria.mostRecent;
+  currentSortingFunction = this.sortingCriteria.mostControversial;
 
   currentPage = 1;
   currentPageIdeas: Idea[] = [];
@@ -88,7 +90,7 @@ export class FeedComponent {
   }
 
   pageRight(){
-    if(this.currentPage < (Math.floor(this.ideas.length/10) + 1)){
+    if(this.currentPage < (Math.floor((this.ideas.length - 1)/10) + 1)){
       this.currentPage = this.currentPage + 1;
       this.currentPageIdeas = this.ideas.slice((this.currentPage - 1) * 10, ((this.currentPage) * 10));
     }

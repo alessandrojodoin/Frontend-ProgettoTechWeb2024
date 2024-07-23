@@ -48,6 +48,8 @@ export class IdeaPageComponent {
         
         //Fetch comments
         this.updateComments();
+
+        this.scaleVoteBars();
       }
     })
 
@@ -71,7 +73,31 @@ export class IdeaPageComponent {
 
   userVote: "upvote" | "downvote" | null = null;
   
+  upvotePercent = 0;
+  downvotePercent = 0;
 
+  scaleVoteBars(){
+    const totalVotes = this.idea.upvotes + this.idea.downvotes;
+    if(totalVotes === 0){
+      this.upvotePercent = 50;
+      this.downvotePercent = 50;
+    }
+    else{
+      this.upvotePercent = (this.idea.upvotes / totalVotes) * 100;
+      this.downvotePercent = 100 - this.upvotePercent;
+    }
+
+
+    if(this.upvotePercent <= 20){
+      this.upvotePercent = 20;
+      this.downvotePercent = 80;
+    }
+    else if(this.upvotePercent > 80){
+      this.upvotePercent = 80;
+      this.downvotePercent = 20;
+    }
+
+  }
 
 
   onUpvote(){
@@ -81,7 +107,7 @@ export class IdeaPageComponent {
       this.idea.downvotes--;
     }
     this.userVote = "upvote";
-    console.log(this.idea);
+    this.scaleVoteBars();
   }
   onDownvote(){
     this.rest.sendVote(this.idea.id, "downvote").subscribe();
@@ -91,6 +117,7 @@ export class IdeaPageComponent {
     }
     this
     this.userVote = "downvote";
+    this.scaleVoteBars();
   }
   onCancel(){
     this.rest.cancelVote(this.idea.id).subscribe();
@@ -101,6 +128,7 @@ export class IdeaPageComponent {
       this.idea.downvotes--;
     }
     this.userVote = null;
+    this.scaleVoteBars();
   }
 
   onDelete(){

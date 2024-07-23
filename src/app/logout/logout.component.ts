@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-logout',
@@ -10,13 +11,17 @@ import { Router } from '@angular/router';
   styleUrl: './logout.component.scss'
 })
 export class LogoutComponent {
+  private location = inject(Location);
   private auth = inject(AuthService);
   private router = inject(Router);
 
   ngOnInit(){
     this.auth.logout();
     setTimeout(() => {
-      this.router.navigate([""]);
+      if(this.location.path() === "/logout"){
+        this.router.navigate([""]);
+      }
+
     }, 4000);
   }
 }

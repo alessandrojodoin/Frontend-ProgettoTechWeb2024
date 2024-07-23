@@ -11,8 +11,8 @@
 }
 
 :host{
-
-    width: clamp(40%, 90%, 50em);
+    max-width: 30em;
+    width: 90%;
     background-color: $primary-color;
     margin: 1em;
     border-radius: 20px 20px 20px 20px;
@@ -28,16 +28,25 @@ a {
 
 .vote-bar{
     * {
-        display: inline-block;
+        display: inline-flex;
+        align-items: center;
         height: 1.5em;
         font-size: 1.3em;
         font-weight: bold;
     }
     .upvotes {
         border-bottom-left-radius: 20px;
+        justify-content: end;
+        div {
+            padding-right: 1em;
+        }
     }
     .downvotes {
         border-bottom-right-radius: 20px;
+        div {
+            padding-left: 1em;
+        }
+
     }
 }
 
@@ -46,15 +55,18 @@ h1 {
     padding-left: 1rem;
     padding-right: 1rem;
     display: block;
-    text-wrap: wrap;
+    word-wrap: break-word;
+    white-space: normal;
     width: 80%;
 
 }
 
 .vote-buttons{
     display: flex;
-   
+    justify-content: space-between;
     button {
+        margin-left: 0.5em;
+        margin-right: 0.5em;
         font-size: 2em;
         color: buttontext;
         display: inline-block;
@@ -63,7 +75,6 @@ h1 {
         cursor: default;
         box-sizing: border-box;
         background-color: transparent;
-        margin: 0em;
         padding-block: 1px;
         padding-inline: 6px;
         border-width: 2px;
@@ -85,3 +96,4 @@ h1 {
     padding-right: 1em;
     padding-bottom: 1em;
 }
+

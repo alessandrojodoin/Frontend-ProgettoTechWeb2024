@@ -1,8 +1,16 @@
 <app-navbar></app-navbar>
+@if(location.path() === "/feed"){
+    <div class="wide-app-container">
+        <div>
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+}
+@else{
 <div class="app-container">
     <div>
         <router-outlet></router-outlet>
     </div>
 </div>
-
+}
 

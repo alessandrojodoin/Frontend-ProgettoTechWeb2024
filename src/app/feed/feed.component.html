@@ -1,17 +1,23 @@
+<div class="welcome">
+    Welcome, {{auth.getUsername()}}
+</div>
 <div class="sorting-options">
-    <button (click)="sortIdeas(sortingCriteria.mostControversial)">Most Controversial</button>
-    <button (click)="sortIdeas(sortingCriteria.mostPopular)">Most Popular</button>
-    <button (click)="sortIdeas(sortingCriteria.mostUnpopular)">Most Unpopular</button>
-    <button (click)="sortIdeas(sortingCriteria.mostRecent)">Most Recent</button>
+    <button [class.selected]="currentSortingFunction === sortingCriteria.mostControversial" (click)="sortIdeas(sortingCriteria.mostControversial)">Most Controversial</button>
+    <button [class.selected]="currentSortingFunction === sortingCriteria.mostPopular" (click)="sortIdeas(sortingCriteria.mostPopular)">Most Popular</button>
+    <button [class.selected]="currentSortingFunction === sortingCriteria.mostUnpopular" (click)="sortIdeas(sortingCriteria.mostUnpopular)">Most Unpopular</button>
+    <button [class.selected]="currentSortingFunction === sortingCriteria.mostRecent" (click)="sortIdeas(sortingCriteria.mostRecent)">Most Recent</button>
 </div>
 
+<div class="idea-list">
 @for(idea of currentPageIdeas; track idea.id){
 
     <app-idea-preview [idea]="idea"></app-idea-preview>
 
 }
+</div>
 
-<div>
+<a routerLink="/submit">Submit an idea <i class="bi bi-send-fill"></i></a>
+<div class="page-selection">
     <button (click)="pageLeft()"><i class="bi bi-caret-left"></i></button>{{currentPage}}<button (click)="pageRight()"><i class="bi bi-caret-right"></i></button>
 </div>
-<a routerLink="/submit">Submit an idea</a>
+

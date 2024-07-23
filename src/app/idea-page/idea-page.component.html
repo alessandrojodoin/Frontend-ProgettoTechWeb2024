@@ -1,40 +1,59 @@
-<h1 id="title">{{idea.title}}</h1>
-<p id="description" [innerHTML]="converter.makeHtml(idea.description)"></p>
-<div>
-    {{idea.author.username}}     submitted {{idea.createdAt.toDateString()}}
-    @if(this.auth.getUsername() === idea.author.username){
-        <button (click)="onDelete()"><i class="bi bi-trash-fill"></i></button>
-    } 
+<div class="idea-body">
+    <h1 id="title">{{idea.title}}</h1>
+    <div class="idea-info">
+        <div>
+            Submitted by {{idea.author.username}} on {{idea.createdAt.toLocaleDateString()}}, at {{idea.createdAt.toLocaleTimeString()}}
+            @if(this.auth.getUsername() === idea.author.username){
+                <button class="delete-idea" (click)="onDelete()"><i class="bi bi-trash-fill"></i></button>
+            } 
+        
+        </div>
+        <p id="description" [innerHTML]="converter.makeHtml(idea.description)"></p>
+
+        @if(idea.author.username !== this.auth.getUsername()){
+            <div class="vote-buttons">
+                @if(userVote !== "upvote"){
+                    <button class="upvote-button" (click)="onUpvote()"><i class="bi bi-arrow-up-circle"></i></button>
+                }
+                @else {
+                    <button class="upvote-button" (click)="onCancel()"><i class="bi bi-arrow-up-circle-fill"></i></button>
+                }
+                @if(userVote !== "downvote"){
+                    <button class="downvote-button" (click)="onDownvote()"><i class="bi bi-arrow-down-circle"></i></button>
+                }
+                @else {
+                    <button class="downvote-button" (click)="onCancel()"><i class="bi bi-arrow-down-circle-fill"></i></button>
+                }
+        
+            </div>
+        }
+    </div>
+
+    <div class="vote-bar">
+        <div class="upvotes" [style.width]="upvotePercent.toString() + '%'">
+            <div>
+                {{idea.upvotes}}
+            </div>
+    
+            
+        </div>
+        <div class="downvotes" [style.width]="downvotePercent.toString() + '%'">
+            <div>
+                {{idea.downvotes}}
+            </div>
+    
+        </div>
+    </div>
+    
 </div>
-@if(idea.author.username !== this.auth.getUsername()){
-    <div class="vote-buttons">
-        @if(userVote !== "upvote"){
-            <button (click)="onUpvote()"><i class="bi bi-arrow-up-circle"></i></button>
-        }
-        @else {
-            <button (click)="onCancel()"><i class="bi bi-arrow-up-circle-fill"></i></button>
-        }
-        @if(userVote !== "downvote"){
-            <button (click)="onDownvote()"><i class="bi bi-arrow-down-circle"></i></button>
-        }
-        @else {
-            <button (click)="onCancel()"><i class="bi bi-arrow-down-circle-fill"></i></button>
-        }
 
-    </div>
-}
-<div id="vote-bar">
-    <div id="upvotes">
-        {{idea.upvotes}}
-    </div>
-    <div id="downvotes">
-        {{idea.downvotes}}
-    </div>
+
+<div class="comment-list">
+    @for(comment of comments; track comment.id){
+
+        <app-comment [comment] = "comment"></app-comment>
+    
+    }
 </div>
 
-@for(comment of comments; track comment.id){
-
-    <app-comment [comment] = "comment"></app-comment>
-
-}
 <app-submit-comment [ideaId]="idea.id" (commentSubmitted)="updateComments()"></app-submit-comment>

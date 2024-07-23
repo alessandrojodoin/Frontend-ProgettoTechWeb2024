@@ -1,6 +1,6 @@
 
 <h1 class="title"><a routerLink="/idea/{{idea.id}}">{{idea.title}}</a></h1>
-<div class="idea-info">{{idea.author.username}}     submitted {{idea.createdAt.toLocaleDateString()}} {{idea.createdAt.toLocaleTimeString()}}</div>
+<div class="idea-info">Submitted by {{idea.author.username}} on {{idea.createdAt.toLocaleDateString()}}, at {{idea.createdAt.toLocaleTimeString()}}</div>
 
 @if(idea.author.username !== this.auth.getUsername()){
     <div class="vote-buttons">
@@ -22,11 +22,17 @@
 
 <div class="vote-bar">
     <div class="upvotes" [style.width]="upvotePercent.toString() + '%'">
-        {{idea.upvotes}}
+        <div>
+            {{idea.upvotes}}
+        </div>
+
         
     </div>
     <div class="downvotes" [style.width]="downvotePercent.toString() + '%'">
-        {{idea.downvotes}}
+        <div>
+            {{idea.downvotes}}
+        </div>
+
     </div>
 </div>
 

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { ErrorHandlerService } from '../_services/error-handler.service';
 
 @Component({
   selector: 'app-error-page',
@@ -8,5 +9,7 @@ import { Component } from '@angular/core';
   styleUrl: './error-page.component.scss'
 })
 export class ErrorPageComponent {
-
+  errorService = inject(ErrorHandlerService);
+  
+  
 }

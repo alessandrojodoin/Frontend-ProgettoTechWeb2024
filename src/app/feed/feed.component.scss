@@ -1,5 +1,65 @@
+@import "../variables.scss";
+
 :host{
     display: flex;
     flex-flow: column;
     align-items: center;
+}
+
+@media (max-width: 80em){
+    .idea-list{
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+    }
+}
+@media (min-width: 80em){
+    .idea-list{
+        display: grid;
+        grid-template-columns: 50% 50%;
+        place-items: center;
+    }
+}
+
+.idea-list{
+    width: 100%;
+}
+
+button.selected{
+    background-color: $primary-color;
+
+}
+
+.sorting-options{
+    button{
+        border-radius: 10px;
+        width: clamp(94px, 20%, 25%);
+        min-height: 36px;
+    }
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    flex-grow: 1;
+}
+
+.page-selection{
+    font-size: 2em;
+    button{
+        padding: 1em;
+        color: black;
+        background-color: $primary-color;
+        margin: 0.5em;
+    }
+}
+
+a {
+    font-size: large;
+    font-weight: bold;
+}
+
+.welcome{
+    margin-top: 1em;
+    padding: 5px;
+    font-size: large;
+    font-weight: bold;
 }

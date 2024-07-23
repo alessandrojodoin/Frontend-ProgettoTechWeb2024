@@ -1,0 +1,86 @@
+@import "../variables.scss";
+
+:host{
+
+    display: flex;
+    align-items: center;
+    flex-flow: column;
+ 
+
+}
+
+form{
+    margin-top: 5%;
+    background-color: $primary-color;
+    width: 80%;
+    display: grid;
+    grid-template-columns: 40% 60%;
+    grid-template-rows: 1fr 1em 6em 1fr;
+    grid-template-areas: "signup signup" "titleField titleField" "largeField largeField" "button button";
+    border-radius: 20px;
+    padding: 1em;
+    row-gap: 1em;
+    justify-items: center;
+
+}
+
+h1{
+    grid-area: signup;
+    text-align: center;
+
+}
+
+#title{
+    grid-area: titleField;
+    height: 1.1em;
+}
+
+.large-field{
+    grid-area: largeField;
+    width: 100%;
+    height: 100%;
+
+}
+
+#description{
+    height: 5em;
+    width: 100%;
+}
+
+button{
+    grid-area: button;
+    font-size: larger;
+    font-weight: bold;
+    width: 5em;
+    height: 2em;
+    padding: 0.5em;
+
+}
+
+
+
+.label{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin-right: 1em;
+}
+
+.field{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+input{
+    width: 60%;
+}
+
+.title-field{
+    grid-area: titleField;
+    width: 100%;
+}
