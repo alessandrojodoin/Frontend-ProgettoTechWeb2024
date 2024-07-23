@@ -8,6 +8,7 @@ import { CommentComponent } from '../comment/comment.component';
 import { SubmitCommentComponent } from "../submit-comment/submit-comment.component";
 import Showdown from 'showdown';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ErrorHandlerService } from '../_services/error-handler.service';
 
 @Component({
   selector: 'app-idea-page',
@@ -20,6 +21,7 @@ export class IdeaPageComponent {
   private activatedRoute = inject(ActivatedRoute);
   private rest = inject(RestBackendService)
   private router = inject(Router);
+  private errorService = inject(ErrorHandlerService);
   converter = new Showdown.Converter();
   sanitizer = inject(DomSanitizer);
 
@@ -50,6 +52,10 @@ export class IdeaPageComponent {
         this.updateComments();
 
         this.scaleVoteBars();
+      },
+      error: (error) => {
+        this.errorService.setError({status: error.status, message: error.message});
+        this.router.navigate(["/error"]);
       }
     })
 

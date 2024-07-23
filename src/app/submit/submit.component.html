@@ -1,14 +1,14 @@
 <form [formGroup]="ideaForm" (ngSubmit)="onSubmit()">
     <h1>Submit your idea</h1>
     <div class="title-field">
-        <label for="title">Title: </label>
+        <label for="title">Title (Max 50 characters): </label>
         <input id="title" formControlName="title">
     </div>
 
 
 
     <div class="large-field">
-        <label for="description">Description:</label>
+        <label for="description">Description (Max 400 characters):</label>
         <input id="description" formControlName="description" type="text">
     </div>
 

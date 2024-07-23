@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Idea, User, Reply, Vote } from '../../types';
 import { AuthService } from './auth.service';
-import { map } from 'rxjs';
+import { catchError, EMPTY, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -112,7 +112,10 @@ export class RestBackendService {
   getUserVote(ideaId: number){
     this.updateAuthHeader();
     const url = `${this.url}/ideas/${ideaId}/votes`;
-    return this.http.get<Vote>(url, {...this.jsonHttpOptions, ...{params: new HttpParams().set('username', this.auth.authState.user as string)}});
+    return this.http.get<Vote>(url, {...this.jsonHttpOptions, ...{params: new HttpParams().set('username', this.auth.authState.user as string)}})
+    .pipe(
+      catchError(error => EMPTY)
+    )
   }
   
   postComment(content: string, ideaId: number){

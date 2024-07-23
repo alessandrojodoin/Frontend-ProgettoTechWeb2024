@@ -124,4 +124,13 @@ h1 {
 
 .comment-list{
     width: 80%;
+    h1{
+        margin: 0;
+        padding: 0;
+        padding-bottom: 1em;
+    }
+    border-radius: 1px;
+    border: solid #000;
+    border-width: 2px;
+    border-color: black;
 }

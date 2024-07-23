@@ -1,6 +1,8 @@
 import { inject, Injectable, Injector } from '@angular/core';
 import { RestBackendService } from './rest-backend.service';
 import { jwtDecode } from 'jwt-decode';
+import { catchError, EMPTY, throwError } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 type AuthState = {
@@ -64,16 +66,18 @@ export class AuthService {
 
   login(loginCredentials: {username: string, password: string}){
     const rest = this.injector.get(RestBackendService);
-    rest.login(loginCredentials).subscribe({
+    const request = rest.login(loginCredentials);
+    request.pipe(catchError((error) => EMPTY)).subscribe({
       next: (token) => {
         this.setToken(token);
       },
       error: (error) => {
-        throw error;
       },
       complete: () => {}
 
     })
+    return request;
+
   }
 
   isUserAuthenticated(): boolean {

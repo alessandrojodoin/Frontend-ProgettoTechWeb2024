@@ -2,6 +2,9 @@ import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RestBackendService } from '../_services/rest-backend.service';
 import { AuthService } from '../_services/auth.service';
+import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,21 +14,45 @@ import { AuthService } from '../_services/auth.service';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
+  private router = inject(Router);
   private authService = inject(AuthService);
+  private toastr = inject(ToastrService);
   loginForm = new FormGroup({
     username: new FormControl('',
-      Validators.required,
+      [Validators.required,
+      Validators.minLength(1)]
     ),
     password: new FormControl('',
-      Validators.required
+      [Validators.required,
+      Validators.minLength(1)]
     ),
   })
 
   onSubmit(){
-    this.authService.login({
-      username: this.loginForm.value.username as string,
-      password: this.loginForm.value.password as string
-    })
+    if(this.loginForm.invalid){
+      this.toastr.error("Please make sure you have filled all of the fields", "Error");
+    }
+    else{
+
+      this.authService.login({
+        username: this.loginForm.value.username as string,
+        password: this.loginForm.value.password as string
+      }).subscribe({
+        next: () =>{
+          this.toastr.success("Logged in succesfully!", "Success");
+          this.router.navigate(["/feed"]);
+        },
+        error: (error) =>{
+          if(error instanceof HttpErrorResponse){
+            this.toastr.error(error.error.message);
+          }
+        }
+      })
+
+
+    }
   }
+
+  
 }
 

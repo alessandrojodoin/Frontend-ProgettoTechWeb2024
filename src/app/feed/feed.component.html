@@ -9,6 +9,9 @@
 </div>
 
 <div class="idea-list">
+@if(ideas.length === 0){
+    There are currently no ideas that can be displayed
+}
 @for(idea of currentPageIdeas; track idea.id){
 
     <app-idea-preview [idea]="idea"></app-idea-preview>

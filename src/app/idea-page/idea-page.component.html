@@ -49,6 +49,12 @@
 
 
 <div class="comment-list">
+    @if(comments.length !== 0){
+        <h1>Comments:</h1>
+    }
+    @else {
+        <h1>No one has commented yet</h1>
+    }
     @for(comment of comments; track comment.id){
 
         <app-comment [comment] = "comment"></app-comment>
