@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Idea, User, Reply, Vote } from '../../types';
 import { AuthService } from './auth.service';
 import { catchError, EMPTY, map } from 'rxjs';
-
 @Injectable({
   providedIn: 'root'
 })

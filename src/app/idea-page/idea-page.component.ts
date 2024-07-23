@@ -9,6 +9,7 @@ import { SubmitCommentComponent } from "../submit-comment/submit-comment.compone
 import Showdown from 'showdown';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ErrorHandlerService } from '../_services/error-handler.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-idea-page',
@@ -22,6 +23,7 @@ export class IdeaPageComponent {
   private rest = inject(RestBackendService)
   private router = inject(Router);
   private errorService = inject(ErrorHandlerService);
+  private toastr = inject(ToastrService);
   converter = new Showdown.Converter();
   sanitizer = inject(DomSanitizer);
 
@@ -138,10 +140,14 @@ export class IdeaPageComponent {
   }
 
   onDelete(){
-    this.rest.deleteIdea(this.idea.id).subscribe();
-    setTimeout( () => {
-      this.router.navigate(["/feed"]);
-    }, 30)
+    this.rest.deleteIdea(this.idea.id).subscribe({
+      next: () => {
+        this.toastr.success("Idea succesfully deleted", "Success");
+        this.router.navigate(["/feed"]);
+
+      }
+    });
+
 
   }
 
