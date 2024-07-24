@@ -8,10 +8,11 @@
     <button [class.selected]="currentSortingFunction === sortingCriteria.mostRecent" (click)="sortIdeas(sortingCriteria.mostRecent)">Most Recent</button>
 </div>
 
-<div class="idea-list">
 @if(ideas.length === 0){
-    There are currently no ideas that can be displayed
+    <div class="no-idea-msg">There are currently no ideas that can be displayed</div>
 }
+<div class="idea-list">
+
 @for(idea of currentPageIdeas; track idea.id){
 
     <app-idea-preview [idea]="idea"></app-idea-preview>
